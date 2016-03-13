@@ -18,6 +18,18 @@ class ChatDetailViewController: JSQMessagesViewController {
     var outgoingBubbleImageView: JSQMessagesBubbleImage!
     var incomingBubbleImageView: JSQMessagesBubbleImage!
     
+    var userIsTypingRef: Firebase!
+    private var localTyping = false
+    var isTyping: Bool {
+        get {
+            return localTyping
+        }
+        set {
+            localTyping = newValue
+            userIsTypingRef.setValue(newValue)
+        }
+    }
+    var usersTypingQuery: FQuery!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +39,12 @@ class ChatDetailViewController: JSQMessagesViewController {
         // No avatars
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.observeMessages()
+        self.observeTyping()
     }
     
     // MARK: - JSQMessagesCollectionViewDataSource
@@ -71,7 +89,7 @@ class ChatDetailViewController: JSQMessagesViewController {
         return cell
     }
     
-    override func  didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         
         let itemRef = messageRef.childByAutoId()
         let messageItem = ["text": text, "senderId": senderId]
@@ -80,6 +98,12 @@ class ChatDetailViewController: JSQMessagesViewController {
         JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
         
         finishSendingMessage()
+        self.isTyping = false
+    }
+    
+    override func textViewDidChange(textView: UITextView) {
+        super.textViewDidChange(textView)
+        isTyping = textView.text != ""
     }
     
     func addMessage(id: String, text: String) {
@@ -87,6 +111,34 @@ class ChatDetailViewController: JSQMessagesViewController {
         messages.append(message)
     }
     
+    private func observeMessages() {
+        let messageQuery = messageRef.queryLimitedToLast(25)
+        messageQuery.observeEventType(.ChildAdded) { (snapshot: FDataSnapshot!) in
+            let id = snapshot.value["senderId"] as! String
+            let text = snapshot.value["text"] as! String
+            self.addMessage(id, text: text)
+            self.finishReceivingMessage()
+        }
+    }
     
+    private func observeTyping() {
+        let typingIndicatorRef = DataService().refBase.childByAppendingPath("typingIndicator")
+        userIsTypingRef = typingIndicatorRef.childByAppendingPath(senderId)
+        userIsTypingRef.onDisconnectRemoveValue()
+        
+        usersTypingQuery = typingIndicatorRef.queryOrderedByValue().queryEqualToValue(true)
+        
+        usersTypingQuery.observeEventType(.Value) { (snapshot: FDataSnapshot!) in
+            
+             // You're the only typing, don't show the indicator
+            if snapshot.childrenCount == 1 && self.isTyping {
+                return
+            }
+            
+            // Are there others typing?
+            self.showTypingIndicator = snapshot.childrenCount > 0
+            self.scrollToBottomAnimated(true)
+        }
+    }
     
 }
