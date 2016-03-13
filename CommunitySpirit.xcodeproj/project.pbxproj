@@ -10,6 +10,7 @@
 		703C93431C95F58600C0063A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C93401C95F58600C0063A /* Bolts.framework */; };
 		703C93441C95F58600C0063A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C93411C95F58600C0063A /* FBSDKCoreKit.framework */; };
 		703C93451C95F58600C0063A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C93421C95F58600C0063A /* FBSDKLoginKit.framework */; };
+		703C93471C95FE5400C0063A /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C93461C95FE5400C0063A /* ChatDetailViewController.swift */; };
 		70B54FFB1C95EEBB00BBDAC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B54FFA1C95EEBB00BBDAC6 /* AppDelegate.swift */; };
 		70B54FFD1C95EEBB00BBDAC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B54FFC1C95EEBB00BBDAC6 /* LoginViewController.swift */; };
 		70B550001C95EEBB00BBDAC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70B54FFE1C95EEBB00BBDAC6 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		703C93401C95F58600C0063A /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		703C93411C95F58600C0063A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		703C93421C95F58600C0063A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		703C93461C95FE5400C0063A /* ChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		70B54FF71C95EEBB00BBDAC6 /* CommunitySpirit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommunitySpirit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B54FFA1C95EEBB00BBDAC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70B54FFC1C95EEBB00BBDAC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				70B54FFC1C95EEBB00BBDAC6 /* LoginViewController.swift */,
+				703C93461C95FE5400C0063A /* ChatDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70B5500F1C95EFD900BBDAC6 /* DataServices.swift in Sources */,
+				703C93471C95FE5400C0063A /* ChatDetailViewController.swift in Sources */,
 				70B54FFD1C95EEBB00BBDAC6 /* LoginViewController.swift in Sources */,
 				70B54FFB1C95EEBB00BBDAC6 /* AppDelegate.swift in Sources */,
 				70B550121C95F18900BBDAC6 /* Constants.swift in Sources */,

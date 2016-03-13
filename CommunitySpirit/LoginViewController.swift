@@ -87,6 +87,14 @@ class LoginViewController: UIViewController {
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        let navVc = segue.destinationViewController as! UINavigationController
+        let chatDetailsVc = navVc.viewControllers.first as! ChatDetailViewController
+        chatDetailsVc.senderId = DataService.init().refBase.authData.uid
+        chatDetailsVc.senderDisplayName = ""
+    }
+    
     // MARK: Private
     
     func navigateToLoggedInScene() {
