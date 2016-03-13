@@ -8,9 +8,12 @@
 
 import Foundation
 import JSQMessagesViewController
+import Firebase
 
 class ChatDetailViewController: JSQMessagesViewController {
 
+    var messageRef: Firebase!
+    
     var messages = [JSQMessage]()
     var outgoingBubbleImageView: JSQMessagesBubbleImage!
     var incomingBubbleImageView: JSQMessagesBubbleImage!
@@ -20,20 +23,10 @@ class ChatDetailViewController: JSQMessagesViewController {
         super.viewDidLoad()
         self.title = "Chat"
         self.setupBubbles()
+        self.messageRef = DataService().refBase.childByAppendingPath("messages")
         // No avatars
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        // messages from someone else
-        addMessage("foo", text: "Hey person!")
-        // messages sent from local sender
-        addMessage(senderId, text: "Yo!")
-        addMessage(senderId, text: "I like turtles!")
-        // animates the receiving of a new message on the view
-        finishReceivingMessage()
     }
     
     // MARK: - JSQMessagesCollectionViewDataSource
@@ -78,9 +71,22 @@ class ChatDetailViewController: JSQMessagesViewController {
         return cell
     }
     
+    override func  didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+        
+        let itemRef = messageRef.childByAutoId()
+        let messageItem = ["text": text, "senderId": senderId]
+        itemRef.setValue(messageItem)
+        
+        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+        
+        finishSendingMessage()
+    }
+    
     func addMessage(id: String, text: String) {
         let message = JSQMessage(senderId: id, displayName: "", text: text)
         messages.append(message)
     }
+    
+    
     
 }
