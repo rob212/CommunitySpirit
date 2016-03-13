@@ -12,6 +12,6 @@ import Firebase
 class DataService {
     static let ds = DataService()
     
-    private(set) var refBase = Firebase(url: "https://rob-showcase.firebaseio.com")
+    private(set) var refBase = Firebase(url: "https://community-spirit.firebaseio.com/")
     
 }
