@@ -25,7 +25,6 @@
                                 <state key="normal" image="facebookLoginButton"/>
                                 <connections>
                                     <action selector="fbButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jmy-ck-DoL"/>
-                                    <segue destination="R2r-Yc-oV1" kind="show" identifier="loggedIn" id="zia-tj-Y93"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="communitySpiritLogo" translatesAutoresizingMaskIntoConstraints="NO" id="DeZ-04-JFd">
@@ -56,6 +55,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImage" destination="rqj-3S-ufT" id="s39-YT-pmf"/>
+                        <segue destination="R2r-Yc-oV1" kind="show" identifier="loggedIn" id="bmZ-ze-J07"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
